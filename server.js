@@ -4,7 +4,7 @@ const fs = require("fs");
 const https = require("https");
 var code = ["new", "1"];
 var updated = "";
-client.login("NzQ5MTMzNDgzNzI0NjM2MjQw.X0ni7A.MW4xSEZo7UhSWJnItD3dO2I_MMw");
+client.login("NzQ5MTMzNDgzNzI0NjM2MjQw.X0ni7A.hN2c4C12IZd26t8MmlGluDxkc0k");
 const restart = require("./server.js");
 function execute() {
   const restart = require("./server.js");
