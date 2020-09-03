@@ -6,9 +6,9 @@ var path = require("path");
 const fetcher = require("node-fetch");
 var msgend = true;
 var message = null;
-var clid = "clientid";
-var tkn = "token123";
-var name = "name123";
+var clid = "749175255758798849";
+var tkn = "NzQ5MTc1MjU1NzU4Nzk4ODQ5.X0oJ0w.2WDpnmEuWUwB_vGXMg9KmVskKCk";
+var name = "bloxy";
 var welcome =
   "Hello,I'm " +
   name +

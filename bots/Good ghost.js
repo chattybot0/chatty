@@ -6,15 +6,25 @@ var path = require("path");
 const fetcher = require("node-fetch");
 var msgend = true;
 var message = null;
-var clid = "749175255758798849";
-var tkn = "NzQ5MTc1MjU1NzU4Nzk4ODQ5.X0oJ0w.wMGMp1jTfW8Qs0ZmVsYkQ1LC_Zk";
-var name = "Bloxy";
+var clid = "740242882887155867";
+var tkn = "NzQwMjQyODgyODg3MTU1ODY3.XymK6A.-ufyet_cUQtpYXE6Kjs4hbvEydM";
+var name = "Good ghost";
+var welcome =
+  "Hello,I'm " +
+  name +
+  ",and i like to text.\nget help by saying " +
+  name +
+  " help or mentioning me and saying help like <@!?" +
+  clid +
+  "> help";
+var help =
+  "List of my commands:\nping -> Get ping latency\ninvite -> Add me to your server!\nsupport -> Support me!\n";
 //Dynamic statuses
 var statuses = [
-  "Made with chatmaker",
+  "I hate emojis actually",
   "Popcorns!",
-  "Made by mforoud86#5928",
-  "I'm "+name
+  "I'm " + name,
+  "Racoons here :|"
 ];
 var switcher = 0;
 var avatar = [
@@ -28,8 +38,6 @@ function between(min, max) {
 var servcount = NaN;
 //Login and stuff
 client.login(tkn);
-//Recall the bot so it won't turn off 😈
-https.get("https://chatmaker.glitch.me");
 function updatestatus() {
   if (switcher == 0) {
     client.user.setActivity("starting...");
@@ -44,7 +52,21 @@ function status() {
 }
 //filterr.addWords(bad.words);
 function clean(text, message) {
-  return text;
+  const prefix = name;
+
+  const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const prefixRegex = new RegExp(
+    `^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`
+  );
+  if (!prefixRegex.test(message.content)) return;
+
+  const [, matchedPrefix] = message.content.match(prefixRegex);
+  const args = message.content
+    .slice(matchedPrefix.length)
+    .trim()
+    .split(/ +/);
+  const command = args.shift().toLowerCase();
+  return command;
 }
 client.on("ready", () => {
   //SET ACTIVITY
@@ -61,26 +83,8 @@ client.on("guildCreate", guild => {
       guild.leave();
     }
     //Welcome messages
-    guild.channels.cache
-      .find(ch => ch.name === "general")
-      .send(
-        "Sup guyz,i am " +
-          name +
-          ". 👋 \nI am a chatbot 🤖 ,but you can count me as a user. 👨🏻\nSo i can chat with you in activated channels.\nI am currently in **" +
-          client.guilds.cache.size +
-          "** Servers.\n```Commands i have are:\n_help => That's obvius,it shows help... 😐\n_leave => Make me leave your server 👻\n_support => Type the command to see...\n_servers => Get servers count\n_activate => to activate me\n_deactivate => to deactivate me\n_ping => Gives ya the ping latency and stuff\n_invite => Gives ya a link to lemme sneak into ur server```\nSo start enjoying me 😉" +
-          "\nUsing '.|' at the first of your message will cause me to ignore u."
-      );
-    guild.channels.cache
-      .find(ch => ch.name === "welcome")
-      .send(
-        "Sup guyz,i am " +
-          name +
-          ". 👋 \nI am a chatbot 🤖 ,but you can count me as a user. 👨🏻\nSo i can chat with you in activated channels.\nI am currently in **" +
-          client.guilds.cache.size +
-          "** Servers.\n```Commands i have are:\n_help => That's obvius,it shows help... 😐\n_leave => Make me leave your server 👻\n_support => Type the command to see...\n_servers => Get servers count\n_activate => to activate me\n_deactivate => to deactivate me\n_ping => Gives ya the ping latency and stuff\n_invite => Gives ya a link to lemme sneak into ur server```\nSo start enjoying me 😉" +
-          "\nUsing '.|' at the first of your message will cause me to ignore u."
-      );
+    guild.channels.cache.find(ch => ch.name === "general").send(welcome);
+    guild.channels.cache.find(ch => ch.name === "welcome").send(welcome);
   } catch {}
 });
 function respond() {
@@ -92,7 +96,8 @@ function respond() {
       return;
     } else {
       msg.reply(
-        "I will only answer to messages sent to Servers.\nIf you have a server and you  want me there,use this link to add me to that server.\nAlso good ghost 👻 is watching you!\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id="+clid
+        "I will only answer to messages sent to Servers.\nIf you have a server and you  want me there,use this link to add me to that server.\nAlso good ghost 👻 is watching you!\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
+          clid
       );
     }
   } else {
@@ -108,10 +113,7 @@ function respond() {
         client.user.setAvatar(avatar[number]);
       } else {
       }
-      if (
-        clean(msg.content.toLowerCase(), msg) == "null" ||
-        clean(msg.content.toLowerCase(), msg).indexOf(".|") > -1
-      ) {
+      if (clean(msg.content.toLowerCase(), msg) == "null") {
         return;
       }
       //Blockin' out people?
@@ -121,16 +123,14 @@ function respond() {
       ) {
       } else {
         var test = clean(msg.content.toLowerCase(), msg).match(/:(.*):/);
-
-        //SET ACTIVITY
         //Check if bot activated or not
-        if (fs.existsSync("activates/" + msg.channel.id)) {
+        if (2 + 2 == 4) {
           //Check if the message was sent from bot
           if (msg.author.bot) {
             return;
           }
           //Doing keepup
-          else if (clean(msg.content.toLowerCase(), msg) == "_support") {
+          else if (clean(msg.content.toLowerCase(), msg) == "support") {
             msg.channel.send(
               "Due to the hosting restrictions of " +
                 name +
@@ -142,7 +142,7 @@ function respond() {
             );
           }
           //Pingggggggggg
-          else if (clean(msg.content.toLowerCase(), msg) == "_ping") {
+          else if (clean(msg.content.toLowerCase(), msg) == "ping") {
             msg.channel.send("Pinging...").then(sent => {
               sent.edit(
                 "```" +
@@ -153,8 +153,8 @@ function respond() {
             });
           }
           //Gotta do erase learn
-          else if (clean(msg.content.toLowerCase(), msg).includes("_forget")) {
-            if ((msg.author.tag == "Mforoud86#5928")) {
+          else if (clean(msg.content.toLowerCase(), msg).includes("forget")) {
+            if (msg.author.tag == "Mforoud86#5928") {
               fs.unlink("learns/" + msg.content.split("|")[1], function() {
                 msg.reply("i forgot it.");
               });
@@ -163,8 +163,8 @@ function respond() {
             }
           }
           //Gotta do like ban user or whatever :|
-          else if (clean(msg.content.toLowerCase(), msg).includes("_ban")) {
-            if ((msg.author.tag == "Mforoud86#5928")) {
+          else if (clean(msg.content.toLowerCase(), msg).includes("ban")) {
+            if (msg.author.tag == "Mforoud86#5928") {
               fs.writeFile(
                 "banz/" + msg.mentions.users.first().id,
                 msg.mentions.users.first().tag,
@@ -177,8 +177,8 @@ function respond() {
             }
           }
           //Gotta like unban
-          else if (clean(msg.content.toLowerCase(), msg).includes("_unban")) {
-            if ((msg.author.tag == "Mforoud86#5928")) {
+          else if (clean(msg.content.toLowerCase(), msg).includes("unban")) {
+            if (msg.author.tag == "Mforoud86#5928") {
               fs.unlink("banz/" + msg.mentions.users.first().id, function() {
                 msg.reply("unbanned.");
               });
@@ -187,23 +187,16 @@ function respond() {
             }
           }
           //Info message
-          else if (clean(msg.content.toLowerCase(), msg) == "_info") {
+          else if (clean(msg.content.toLowerCase(), msg) == "info") {
             msg.channel.send(msg.author.id);
-          } else if (clean(msg.content.toLowerCase(), msg) == "_help") {
-            msg.channel.send(
-              "Sup guyz,i am " +
-                name +
-                ". 👋 \nI am a chatbot 🤖 ,but you can count me as a user. 👨🏻\nSo i can chat with you in activated channels.\nI am currently in **" +
-                client.guilds.cache.size +
-                "** Servers.\n```Commands i have are:\n_help => That's obvius,it shows help... 😐\n_leave => Make me leave your server 👻\n_support => Type the command to see...\n_servers => Get servers count\n_activate => to activate me\n_deactivate => to deactivate me\n_ping => Gives ya the ping latency and stuff\n_invite => Gives ya a link to lemme sneak into ur server```\nSo start enjoying me 😉" +
-                "\nUsing '.|' at the first of your message will cause me to ignore u."
-            );
+          } else if (clean(msg.content.toLowerCase(), msg) == "help") {
+            msg.channel.send(help);
           } //LOL
-          else if (clean(msg.content.toLowerCase(), msg) == "_activate") {
+          /*else if (clean(msg.content.toLowerCase(), msg) == "activate") {
             msg.reply("already activated!");
           }
           //Deactivation
-          else if (clean(msg.content.toLowerCase(), msg) == "_deactivate") {
+          else if (clean(msg.content.toLowerCase(), msg) == "deactivate") {
             //Checking if the guy admin
             if (msg.member.hasPermission("ADMINISTRATOR")) {
               fs.unlink("activates/" + msg.channel.id, function(err) {
@@ -212,7 +205,8 @@ function respond() {
             } else {
               msg.reply("Only a true admin would be able to put me to sleep!");
             }
-          } else if (clean(msg.content.toLowerCase(), msg) == "_leave") {
+          }*/
+          else if (clean(msg.content.toLowerCase(), msg) == "leave") {
             if (msg.member.hasPermission("ADMINISTRATOR")) {
               fs.unlink("activates/" + msg.channel.id, function(err) {
                 msg.reply(
@@ -225,15 +219,16 @@ function respond() {
             } else {
               msg.reply("Only a true admin would be able to kick me out!");
             }
-          } else if (clean(msg.content.toLowerCase(), msg) == "_servers") {
+          } else if (clean(msg.content.toLowerCase(), msg) == "servers") {
             msg.channel.send(
               "I am currently in **" + client.guilds.cache.size + "** Servers."
             );
           }
           //Get invite link
-          else if (clean(msg.content.toLowerCase(), msg) == "_invite") {
+          else if (clean(msg.content.toLowerCase(), msg) == "invite") {
             msg.channel.send(
-              "Use this link to add me to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" + clid
+              "Use this link to add me to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
+                clid
             );
           }
           //DA REAL CODE
@@ -271,7 +266,7 @@ function respond() {
               }
               //}
             } else {
-              //This guy has already teached or never teached...
+              //This guy has already teached or not teached...
               fs.readFile(
                 "learns/" + clean(msg.content.toLowerCase(), msg),
                 "utf8",
@@ -294,18 +289,11 @@ function respond() {
           }
         }
         //HELP
-        else if (msg.content == "_help") {
-          msg.channel.send(
-            "Sup guyz,i am " +
-              name +
-              ". 👋 \nI am a chatbot 🤖 ,but you can count me as a user. 👨🏻\nSo i can chat with you in activated channels.\nI am currently in **" +
-              client.guilds.cache.size +
-              "** Servers.\n```Commands i have are:\n_help => That's obvius,it shows help... 😐\n_leave => Make me leave your server 👻\n_support => Type the command to see...\n_servers => Get servers count\n_activate => to activate me\n_deactivate => to deactivate me\n_ping => Gives ya the ping latency and stuff\n_invite => Gives ya a link to lemme sneak into ur server```\nSo start enjoying me 😉" +
-              "\nUsing '.|' at the first of your message will cause me to ignore u."
-          );
+        else if (msg.content == "help") {
+          msg.channel.send(help);
         }
         //Activate the bot
-        else if (msg.content == "_activate") {
+        /*else if (msg.content == "activate") {
           if (!msg.member.hasPermission("ADMINISTRATOR")) {
             msg.reply("Only a true admin would be able to wake me up!");
           } else {
@@ -317,7 +305,7 @@ function respond() {
               }
             );
           }
-        }
+        }*/
       }
     }
   }
