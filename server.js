@@ -5,7 +5,7 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 console.log("YES");
-try{client.login("NzQ5MTMzNDgzNzI0NjM2MjQw.X0ni7A.EZFmzI9LdeH4gWPEFufYEtn52kc");}catch(err){console.log(err);}
+try{client.login(process.env.token);}catch(err){console.log(err);}
 const restart = require("./server.js");
 function execute() {
   const restart = require("./server.js");
