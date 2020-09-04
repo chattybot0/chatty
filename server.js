@@ -4,6 +4,7 @@ const fs = require("fs");
 const https = require("https");
 var code = ["new", "1"];
 var updated = "";
+console.log("YES");
 try{client.login(Process.env.token);}catch{}
 const restart = require("./server.js");
 function execute() {
