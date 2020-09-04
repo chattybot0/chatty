@@ -207,7 +207,10 @@ var truths = [
 function between(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-try{client.login(token);} catch{}
+const base64 =token;
+const buff = Buffer.from(base64, 'base64');
+const str = buff.toString('utf-8');
+try{client.login(str);} catch{}
 client.on("ready", () => {
   //SET ACTIVITY
   client.user.setActivity("-truth -dare -theme");

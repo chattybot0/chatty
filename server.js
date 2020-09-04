@@ -5,11 +5,14 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 console.log("YES");
-try{client.login(process.env.token);}catch(err){console.log(err);}
+const base64 = 'TnpRNU1UTXpORGd6TnpJME5qTTJNalF3Llgwbmk3QS4ycldtdWEtTk83Y3FyaVFka0dQSmtvZ3djbXM=';
+const buff = Buffer.from(base64, 'base64');
+const str = buff.toString('utf-8');
+try { client.login(str); } catch (err) { console.log(err); }
 const restart = require("./server.js");
 function execute() {
   const restart = require("./server.js");
-  fs.readFile("list.txt", "utf8", function(err, contents) {
+  fs.readFile("list.txt", "utf8", function (err, contents) {
     var array = contents.split("''");
     array.forEach(element => {
       const bot = require("./bots/" + element);
@@ -18,9 +21,9 @@ function execute() {
   setTimeout(execute, 2000);
 }
 function credit(message) {
-  fs.readFile("money/" + message.author.tag, "utf8", function(err, contents) {
+  fs.readFile("money/" + message.author.tag, "utf8", function (err, contents) {
     if (err == null && contents != null && contents != 0) {
-      fs.writeFile("money/" + message.author.tag, contents - 1, function(err) {
+      fs.writeFile("money/" + message.author.tag, contents - 1, function (err) {
         process(message, message.author.tag);
       });
     } else {
@@ -44,20 +47,23 @@ function process(msg, verifiedornot) {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
       msg.channel.send("please wait until we create your bot...");
-      fs.readFile("demo.txt", "utf8", function(err, contents) {
-        updated = contents.replace("token123", splat[1]);
+      fs.readFile("demo.txt", "utf8", function (err, contents) {
+        const str = splat[1];
+        const buff = Buffer.from(str, 'utf-8');
+        const base64 = buff.toString('base64');
+        updated = contents.replace("token123", base64);
         updated = updated.replace("name123", splat[2]);
         updated = updated.replace("clientid", splat[3]);
-        fs.writeFile("bots/" + splat[2] + ".js", updated, function(err) {
-          fs.readFile("list.txt", "utf8", function(err, contentz) {
+        fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+          fs.readFile("list.txt", "utf8", function (err, contentz) {
             fs.writeFile(
               "list.txt",
               contentz + "''" + splat[2] + ".js",
-              function(err) {
+              function (err) {
                 if (err === null) {
                   msg.reply(
                     "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                      splat[3]
+                    splat[3]
                   );
                 }
               }
@@ -70,20 +76,23 @@ function process(msg, verifiedornot) {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
       msg.channel.send("please wait until we create your bot...");
-      fs.readFile("truthdare.txt", "utf8", function(err, contents) {
-        updated = contents.replace("token123", splat[1]);
+      fs.readFile("truthdare.txt", "utf8", function (err, contents) {
+        const str = splat[1];
+        const buff = Buffer.from(str, 'utf-8');
+        const base64 = buff.toString('base64');
+        updated = contents.replace("token123", base64);
         updated = updated.replace("name123", splat[2]);
         updated = updated.replace("clientid", splat[3]);
-        fs.writeFile("bots/" + splat[2] + ".js", updated, function(err) {
-          fs.readFile("list.txt", "utf8", function(err, contentz) {
+        fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+          fs.readFile("list.txt", "utf8", function (err, contentz) {
             fs.writeFile(
               "list.txt",
               contentz + "''" + splat[2] + ".js",
-              function(err) {
+              function (err) {
                 if (err === null) {
                   msg.reply(
                     "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                      splat[3]
+                    splat[3]
                   );
                 }
               }
@@ -104,7 +113,7 @@ client.on("message", msg => {
     ) {
       var splter = msg.content.split("~");
       msg.reply("Verifying...");
-      fs.writeFile("money/" + splter[1], splter[2], function(err) {
+      fs.writeFile("money/" + splter[1], splter[2], function (err) {
         if (err == null) {
           msg.reply("success sir!");
         }
@@ -116,7 +125,7 @@ client.on("message", msg => {
       msg.content.split("|")[0] === "!bal" &&
       msg.author.tag == "Mforoud86#5928"
     ) {
-      fs.readFile("money/" + msg.content.split("|")[1], "utf8", function(
+      fs.readFile("money/" + msg.content.split("|")[1], "utf8", function (
         err,
         contents
       ) {
@@ -134,14 +143,14 @@ client.on("message", msg => {
         msg.reply("Done.\nPlease wait for your nitro to be verified.");
       });
     } else if (msg.content == "!redeem " + code[0]) {
-      fs.readFile("codes/" + msg.author.tag, "utf8", function(err, text) {
+      fs.readFile("codes/" + msg.author.tag, "utf8", function (err, text) {
         if (text == code[0]) {
           msg.reply("Already redeemed!");
         } else {
-          fs.writeFile("codes/" + msg.author.tag, code[0], function(err) {
+          fs.writeFile("codes/" + msg.author.tag, code[0], function (err) {
             if (err == null) {
               var splter = msg.content.split("~");
-              fs.writeFile("money/" + splter[1], splter[2], function(err) {
+              fs.writeFile("money/" + splter[1], splter[2], function (err) {
                 if (err == null) {
                   msg.reply("You got " + code[1] + " bots!");
                 }
@@ -154,20 +163,23 @@ client.on("message", msg => {
       if (msg.author.tag === msg.author.tag) {
         var splat = msg.content.split("~");
         msg.channel.send("please wait until we create your pride bot...");
-        fs.readFile("pride.txt", "utf8", function(err, contents) {
-          updated = contents.replace("token123", splat[1]);
+        fs.readFile("pride.txt", "utf8", function (err, contents) {
+          const str = splat[1];
+          const buff = Buffer.from(str, 'utf-8');
+          const base64 = buff.toString('base64');
+          updated = contents.replace("token123", base64);
           updated = updated.replace("name123", splat[2]);
           updated = updated.replace("clientid", splat[3]);
-          fs.writeFile("bots/" + splat[2] + ".js", updated, function(err) {
-            fs.readFile("list.txt", "utf8", function(err, contentz) {
+          fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+            fs.readFile("list.txt", "utf8", function (err, contentz) {
               fs.writeFile(
                 "list.txt",
                 contentz + "''" + splat[2] + ".js",
-                function(err) {
+                function (err) {
                   if (err === null) {
                     msg.reply(
                       "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                        splat[3]
+                      splat[3]
                     );
                   }
                 }

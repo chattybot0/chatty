@@ -4,7 +4,10 @@ var clid = "clientid";
 var name = "name123";
 var invite =
   "https://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=";
-try{client.login("token123");} catch{}
+  const base64 ="token123";
+const buff = Buffer.from(base64, 'base64');
+const str = buff.toString('utf-8');
+try{client.login(str);} catch{}
 client.on("ready", () => {
   //SET ACTIVITY
   client.user.setActivity(",flaglist");

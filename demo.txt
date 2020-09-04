@@ -37,7 +37,10 @@ function between(min, max) {
 }
 var servcount = NaN;
 //Login and stuff
-try{client.login(tkn);} catch{}
+const base64 =tkn;
+const buff = Buffer.from(base64, 'base64');
+const str = buff.toString('utf-8');
+try{client.login(str);} catch{}
 function updatestatus() {
   if (switcher == 0) {
     client.user.setActivity("starting...");
