@@ -207,7 +207,7 @@ var truths = [
 function between(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-client.login(token);
+try{client.login(token);} catch{}
 client.on("ready", () => {
   //SET ACTIVITY
   client.user.setActivity("-truth -dare -theme");

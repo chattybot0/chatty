@@ -37,7 +37,7 @@ function between(min, max) {
 }
 var servcount = NaN;
 //Login and stuff
-client.login(tkn);
+try{client.login(tkn);} catch{}
 function updatestatus() {
   if (switcher == 0) {
     client.user.setActivity("starting...");
