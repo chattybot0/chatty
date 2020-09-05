@@ -82,7 +82,7 @@ function process(msg, verifiedornot, amount) {
                 contentz + "''" + splat[2] + ".js",
                 function (err) {
                   if (err === null) {
-                    const bot = require(splat[2]+".js");
+                    const bot = require("./bots/"+splat[2]+".js");
                     msg.reply(
                       "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
                       splat[3]
@@ -121,7 +121,7 @@ function process(msg, verifiedornot, amount) {
                 contentz + "''" + splat[2] + ".js",
                 function (err) {
                   if (err === null) {
-                    const bot = require(splat[2]+".js");
+                    const bot = require("./bots/"+splat[2]+".js");
                     msg.reply(
                       "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
                       splat[3]
@@ -219,7 +219,7 @@ client.on("message", msg => {
                   contentz + "''" + splat[2] + ".js",
                   function (err) {
                     if (err === null) {
-                      const bot = require(splat[2]+".js");
+                      const bot = require("./bots/"+splat[2]+".js");
                       msg.reply(
                         "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
                         splat[3]
