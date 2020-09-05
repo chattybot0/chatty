@@ -30,7 +30,10 @@ function credit(message) {
 }
 client.on("ready", () => {
   //SET ACTIVITY
-  client.user.setActivity("!create for help | On "+client.guilds.cache.size+" servers");
+  fs.readFile("list.txt", "utf8", function (err, contentz) {
+    var count = contentz.split("''");
+    client.user.setActivity("!create for help | Hosting "+count.length+" bots");
+  });
   //saying I'M READY
   console.log(`Bot ID:${client.user.tag}`);
   setTimeout(execute, 2000);
