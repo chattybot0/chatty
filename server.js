@@ -8,7 +8,7 @@ const restart = require("./server.js");
 function execute() {
   fs.readFile("list.txt", "utf8", function (err, contentz) {
     var count = contentz.split("''");
-    client.user.setActivity("!create for help | Hosting "+count.length+" bots");
+    client.user.setActivity("!create for help | Hosting " + count.length + " bots");
   });
   const restart = require("./server.js");
   fs.readFile("list.txt", "utf8", function (err, contents) {
@@ -23,7 +23,7 @@ function credit(message) {
   fs.readFile("money/" + message.author.tag, "utf8", function (err, contents) {
     if (err == null && contents != null && contents != 0) {
       fs.writeFile("money/" + message.author.tag, contents - 1, function (err) {
-        process(message, message.author.tag);
+        process(message, message.author.tag, contents);
       });
     } else {
       message.reply(
@@ -36,72 +36,90 @@ client.on("ready", () => {
   //SET ACTIVITY
   fs.readFile("list.txt", "utf8", function (err, contentz) {
     var count = contentz.split("''");
-    client.user.setActivity("!create for help | Hosting "+count.length+" bots");
+    client.user.setActivity("!create for help | Hosting " + count.length + " bots");
   });
   //saying I'M READY
   console.log(`Bot ID:${client.user.tag}`);
   setTimeout(execute, 2000);
 });
-function process(msg, verifiedornot) {
+function process(msg, verifiedornot, amount) {
   if (msg.author.bot) {
     return;
   } else if (msg.content.split("~")[0] == "!create") {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
-      msg.channel.send("please wait until we create your chatbot...");
-      fs.readFile("demo.js", "utf8", function (err, contents) {
-        const str = splat[1];
-        const buff = Buffer.from(str, 'utf-8');
-        const base64 = buff.toString('base64');
-        updated = contents.replace("token123", base64);
-        updated = updated.replace("name123", splat[2]);
-        updated = updated.replace("clientid", splat[3]);
-        fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
-          fs.readFile("list.txt", "utf8", function (err, contentz) {
-            fs.writeFile(
-              "list.txt",
-              contentz + "''" + splat[2] + ".js",
-              function (err) {
-                if (err === null) {
-                  msg.reply(
-                    "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                    splat[3]
-                  );
+      if (fs.existsSync("bots/" + splat[2] + ".js")) {
+        msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
+        fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+          if (err == null) {
+            msg.reply("So you were charged,don't do that anymore my friend!");
+          }
+        });
+      } else {
+        msg.channel.send("please wait until we create your chatbot...");
+        fs.readFile("demo.js", "utf8", function (err, contents) {
+          const str = splat[1];
+          const buff = Buffer.from(str, 'utf-8');
+          const base64 = buff.toString('base64');
+          updated = contents.replace("token123", base64);
+          updated = updated.replace("name123", splat[2]);
+          updated = updated.replace("clientid", splat[3]);
+          fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+            fs.readFile("list.txt", "utf8", function (err, contentz) {
+              fs.writeFile(
+                "list.txt",
+                contentz + "''" + splat[2] + ".js",
+                function (err) {
+                  if (err === null) {
+                    msg.reply(
+                      "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
+                      splat[3]
+                    );
+                  }
                 }
-              }
-            );
+              );
+            });
           });
         });
-      });
+      }
     }
   } else if (msg.content.split("~")[0] == "!truthdare") {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
-      msg.channel.send("please wait until we create your truth or dare bot...");
-      fs.readFile("truthdare.js", "utf8", function (err, contents) {
-        const str = splat[1];
-        const buff = Buffer.from(str, 'utf-8');
-        const base64 = buff.toString('base64');
-        updated = contents.replace("token123", base64);
-        updated = updated.replace("name123", splat[2]);
-        updated = updated.replace("clientid", splat[3]);
-        fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
-          fs.readFile("list.txt", "utf8", function (err, contentz) {
-            fs.writeFile(
-              "list.txt",
-              contentz + "''" + splat[2] + ".js",
-              function (err) {
-                if (err === null) {
-                  msg.reply(
-                    "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                    splat[3]
-                  );
+      if (fs.existsSync("bots/" + splat[2] + ".js")) {
+        msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
+        fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+          if (err == null) {
+            msg.reply("So you were charged,don't do that anymore my friend!");
+          }
+        });
+      } else {
+        msg.channel.send("please wait until we create your truth or dare bot...");
+        fs.readFile("truthdare.js", "utf8", function (err, contents) {
+          const str = splat[1];
+          const buff = Buffer.from(str, 'utf-8');
+          const base64 = buff.toString('base64');
+          updated = contents.replace("token123", base64);
+          updated = updated.replace("name123", splat[2]);
+          updated = updated.replace("clientid", splat[3]);
+          fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+            fs.readFile("list.txt", "utf8", function (err, contentz) {
+              fs.writeFile(
+                "list.txt",
+                contentz + "''" + splat[2] + ".js",
+                function (err) {
+                  if (err === null) {
+                    msg.reply(
+                      "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
+                      splat[3]
+                    );
+                  }
                 }
-              }
-            );
+              );
+            });
           });
         });
-      });
+      }
     }
   } else {
     msg.reply("unknown command,do !create for help.");
@@ -164,31 +182,40 @@ client.on("message", msg => {
     } else if (msg.content.split("~")[0] == "!pride") {
       if (msg.author.tag === msg.author.tag) {
         var splat = msg.content.split("~");
-        msg.channel.send("please wait until we create your pride bot...");
-        fs.readFile("pride.js", "utf8", function (err, contents) {
-          const str = splat[1];
-          const buff = Buffer.from(str, 'utf-8');
-          const base64 = buff.toString('base64');
-          updated = contents.replace("token123", base64);
-          updated = updated.replace("name123", splat[2]);
-          updated = updated.replace("clientid", splat[3]);
-          fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
-            fs.readFile("list.txt", "utf8", function (err, contentz) {
-              fs.writeFile(
-                "list.txt",
-                contentz + "''" + splat[2] + ".js",
-                function (err) {
-                  if (err === null) {
-                    msg.reply(
-                      "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
-                      splat[3]
-                    );
+        if (fs.existsSync("bots/" + splat[2] + ".js")) {
+          msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
+          fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+            if (err == null) {
+              msg.reply("So you were charged,don't do that anymore my friend!");
+            }
+          });
+        } else {
+          msg.channel.send("please wait until we create your pride bot...");
+          fs.readFile("pride.js", "utf8", function (err, contents) {
+            const str = splat[1];
+            const buff = Buffer.from(str, 'utf-8');
+            const base64 = buff.toString('base64');
+            updated = contents.replace("token123", base64);
+            updated = updated.replace("name123", splat[2]);
+            updated = updated.replace("clientid", splat[3]);
+            fs.writeFile("bots/" + splat[2] + ".js", updated, function (err) {
+              fs.readFile("list.txt", "utf8", function (err, contentz) {
+                fs.writeFile(
+                  "list.txt",
+                  contentz + "''" + splat[2] + ".js",
+                  function (err) {
+                    if (err === null) {
+                      msg.reply(
+                        "Success!\nUse this link to add your bot to your server:\nhttps://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=" +
+                        splat[3]
+                      );
+                    }
                   }
-                }
-              );
+                );
+              });
             });
           });
-        });
+        }
       }
     } else {
       credit(msg);

@@ -81,10 +81,6 @@ client.on("guildCreate", guild => {
   servcount = client.guilds.cache.size;
   //send this when bot added to a server
   try {
-    //Ban check
-    if (fs.existsSync("banz/" + guild.id)) {
-      guild.leave();
-    }
     //Welcome messages
     guild.channels.cache.find(ch => ch.name === "general").send(welcome);
     guild.channels.cache.find(ch => ch.name === "welcome").send(welcome);
