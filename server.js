@@ -28,7 +28,7 @@ function execute() {
   setTimeout(execute, 60000);
 }
 function credit(message) {
-  log("Verifying if" + msg.author.tag + "has enough credits...");
+  log("Verifying if" + message.author.tag + "has enough credits...");
   fs.readFile("money/" + message.author.tag, "utf8", function (err, contents) {
     if (err == null && contents != null && contents != 0) {
       fs.writeFile("money/" + message.author.tag, Number(contents), function (err) {
