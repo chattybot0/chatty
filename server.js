@@ -30,7 +30,7 @@ function credit(message) {
 }
 client.on("ready", () => {
   //SET ACTIVITY
-  client.user.setActivity("!create for help | Chatty");
+  client.user.setActivity("!create for help | On "+client.guilds.cache.size+" servers");
   //saying I'M READY
   console.log(`Bot ID:${client.user.tag}`);
   setTimeout(execute, 2000);
