@@ -1,14 +1,14 @@
 <html>
-<script>
-var varGetFromFrontend = 2; // This is variable I want to pass to backend
-</script>
-<head>
-    <title>Home Page</title>
-</head>
-
-<body>
-<h1> This is a test</h1>
-
-
-</body>
+    <head>
+        <title>Index Page</title>
+    </head>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        var variableFromFrontEnd = 2;
+        var socket = io.connect("/");
+        socket.on("connect", function(){
+            console.log("connected!")
+            socket.emit("sendVar", variableFromFrontEnd);
+        });
+    </script>
 </html>
