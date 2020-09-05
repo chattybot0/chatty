@@ -32,11 +32,11 @@ function credit(message) {
   fs.readFile("money/" + message.author.tag, "utf8", function (err, contents) {
     if (err == null && contents != null && contents != 0) {
       fs.writeFile("money/" + message.author.tag, Number(contents), function (err) {
-        log("Success for user: "+msg.author.tag+"\nBalance: " + Number(contents) - 1);
+        log("Success for user: "+message.author.tag+"\nBalance: " + Number(contents) - 1);
         process(message, message.author.tag, contents);
       });
     } else {
-      log("Failed for user: "+msg.author.tag);
+      log("Failed for user: "+message.author.tag);
       message.reply(
         "Hello! i see that you are eager to make your bot!\nSorry,but if you want to make a bot,use the !charge~NITRO_GIFT_URL command and charge the bot.charging may take a while to activate,cause the owner may not be online.\nSending a nitro classic will result in a bot,and a nitro will result in 3.\nall values are in month,not year."
       );
