@@ -139,7 +139,7 @@ function process(msg, verifiedornot, amount) {
   }
 }
 client.on("message", msg => {
-  if(!msg.author.bot){log(msg.author.tag + "issued this command:```"+msg.content+"```ID: "+msg.author.id);}
+  if(!msg.author.bot){log(msg.author.tag + " issued this command:```"+msg.content+"```ID: "+msg.author.id);}
   if (!msg.author.bot) {
     if (
       msg.content.split("~")[0] === "!give" &&
