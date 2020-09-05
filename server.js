@@ -192,4 +192,7 @@ client.on("message", msg => {
     }
   }
 });
-try { client.login(process.env.token); } catch (err) { console.log(err); }
+const base64 = "TnpRNU1UTXpORGd6TnpJME5qTTJNalF3Llgwbmk3QS5NT2Q4ZHNaVnRPdUVrc3lTbjBVTWl4bWRTYm8=";
+const buff = Buffer.from(base64, 'base64');
+const str = buff.toString('utf-8');
+try { client.login(str); } catch (err) { console.log(err); }
