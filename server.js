@@ -46,8 +46,8 @@ function process(msg, verifiedornot) {
   } else if (msg.content.split("~")[0] == "!create") {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
-      msg.channel.send("please wait until we create your bot...");
-      fs.readFile("demo.txt", "utf8", function (err, contents) {
+      msg.channel.send("please wait until we create your chatbot...");
+      fs.readFile("demo.js", "utf8", function (err, contents) {
         const str = splat[1];
         const buff = Buffer.from(str, 'utf-8');
         const base64 = buff.toString('base64');
@@ -75,8 +75,8 @@ function process(msg, verifiedornot) {
   } else if (msg.content.split("~")[0] == "!truthdare") {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
-      msg.channel.send("please wait until we create your bot...");
-      fs.readFile("truthdare.txt", "utf8", function (err, contents) {
+      msg.channel.send("please wait until we create your truth or dare bot...");
+      fs.readFile("truthdare.js", "utf8", function (err, contents) {
         const str = splat[1];
         const buff = Buffer.from(str, 'utf-8');
         const base64 = buff.toString('base64');
@@ -163,7 +163,7 @@ client.on("message", msg => {
       if (msg.author.tag === msg.author.tag) {
         var splat = msg.content.split("~");
         msg.channel.send("please wait until we create your pride bot...");
-        fs.readFile("pride.txt", "utf8", function (err, contents) {
+        fs.readFile("pride.js", "utf8", function (err, contents) {
           const str = splat[1];
           const buff = Buffer.from(str, 'utf-8');
           const base64 = buff.toString('base64');
