@@ -8,7 +8,7 @@ const restart = require("./server.js");
 function execute() {
   fs.readFile("list.txt", "utf8", function (err, contentz) {
     var count = contentz.split("''");
-    client.user.setActivity("!create for help | Hosting " + count.length + " bots");
+    client.user.setActivity("!create | Hosting " + count.length + " bots");
   });
   const restart = require("./server.js");
   fs.readFile("list.txt", "utf8", function (err, contents) {
@@ -36,7 +36,7 @@ client.on("ready", () => {
   //SET ACTIVITY
   fs.readFile("list.txt", "utf8", function (err, contentz) {
     var count = contentz.split("''");
-    client.user.setActivity("!create for help | Hosting " + count.length + " bots");
+    client.user.setActivity("!help | Hosting " + count.length + " bots");
   });
   //saying I'M READY
   console.log(`Bot ID:${client.user.tag}`);
@@ -45,7 +45,7 @@ client.on("ready", () => {
 function process(msg, verifiedornot, amount) {
   if (msg.author.bot) {
     return;
-  } else if (msg.content.split("~")[0] == "!create") {
+  } else if (msg.content.split("~")[0] == "!chatbot") {
     if (verifiedornot === msg.author.tag) {
       var splat = msg.content.split("~");
       if (fs.existsSync("bots/" + splat[2] + ".js")) {
@@ -57,7 +57,7 @@ function process(msg, verifiedornot, amount) {
         });
       } else {
         msg.channel.send("please wait until we create your chatbot...");
-        fs.readFile("demo.js", "utf8", function (err, contents) {
+        fs.readFile("chatbot.js", "utf8", function (err, contents) {
           const str = splat[1];
           const buff = Buffer.from(str, 'utf-8');
           const base64 = buff.toString('base64');
@@ -122,7 +122,7 @@ function process(msg, verifiedornot, amount) {
       }
     }
   } else {
-    msg.reply("unknown command,do !create for help.");
+    msg.reply("unknown command,do !help for help.");
   }
 }
 client.on("message", msg => {
@@ -217,7 +217,25 @@ client.on("message", msg => {
           });
         }
       }
-    } else {
+    }
+    else if (msg.content == "!truthdare") {
+      msg.reply(
+        "**[PREMIUM]**\nThis is not a valid use,you should use it like this:\n!create~TOKEN~NAME~CLIENTID\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
+      );
+    } else if (msg.content == "!pride") {
+      msg.reply(
+        "**[PREMIUM]**\nThis is not a valid use,you should use it like this:\n!chatbot~TOKEN~NAME~CLIENTID\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
+      );
+    } else if (msg.content == "!chatbot") {
+      msg.reply(
+        "**[PREMIUM]**\nThis is not a valid use,you should use it like this:\n!chatbot~TOKEN~NAME~CLIENTID\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
+      );
+    }else if(msg.content=="!help"){
+      msg.reply(
+        "\!chatbot~TOKEN~NAME~CLIENTID for creating a chatbot,\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
+      );
+    }
+    else {
       credit(msg);
     }
   }
