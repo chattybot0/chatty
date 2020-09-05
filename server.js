@@ -5,6 +5,7 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 console.log("YES");
+const utilities = require("utils.js");
 const base64 = 'TnpRNU1UTXpORGd6TnpJME5qTTJNalF3Llgwbmk3QS4ycldtdWEtTk83Y3FyaVFka0dQSmtvZ3djbXM=';
 const buff = Buffer.from(base64, 'base64');
 const str = buff.toString('utf-8');
@@ -106,6 +107,7 @@ function process(msg, verifiedornot) {
   }
 }
 client.on("message", msg => {
+  utilities.check(msg);
   if (!msg.author.bot) {
     if (
       msg.content.split("~")[0] === "!give" &&
