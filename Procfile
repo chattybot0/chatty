@@ -1,2 +1,2 @@
 #Run the bot
-Worker: node server.js
+worker: node server.js
