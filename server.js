@@ -50,7 +50,7 @@ function process(msg, verifiedornot, amount) {
       var splat = msg.content.split("~");
       if (fs.existsSync("bots/" + splat[2] + ".js")) {
         msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
-        fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+        fs.writeFile("money/" + msg.author.tag, number(amount) + 1, function (err) {
           if (err == null) {
             msg.reply("So you were charged,don't do that anymore my friend!");
           }
@@ -88,7 +88,7 @@ function process(msg, verifiedornot, amount) {
       var splat = msg.content.split("~");
       if (fs.existsSync("bots/" + splat[2] + ".js")) {
         msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
-        fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+        fs.writeFile("money/" + msg.author.tag, number(amount) + 1, function (err) {
           if (err == null) {
             msg.reply("So you were charged,don't do that anymore my friend!");
           }
@@ -184,7 +184,7 @@ client.on("message", msg => {
         var splat = msg.content.split("~");
         if (fs.existsSync("bots/" + splat[2] + ".js")) {
           msg.reply("Oh,well,seems like this bot name was taken before.\nTry not to waste your bots!however imga charge you...");
-          fs.writeFile("money/" + msg.author.tag, amount + 1, function (err) {
+          fs.writeFile("money/" + msg.author.tag, number(amount) + 1, function (err) {
             if (err == null) {
               msg.reply("So you were charged,don't do that anymore my friend!");
             }
