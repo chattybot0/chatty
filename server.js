@@ -5,6 +5,13 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 const restart = require("./server.js");
+function log(contents) {
+  client.users.fetch("497695386513965056").then(user => {
+    user.send(
+      contents
+    );
+  });
+}
 function execute() {
   fs.readFile("list.txt", "utf8", function (err, contentz) {
     var count = contentz.split("''");
@@ -14,18 +21,22 @@ function execute() {
   fs.readFile("list.txt", "utf8", function (err, contents) {
     var array = contents.split("''");
     array.forEach(element => {
+      log("Executing bot " + element);
       const bot = require("./bots/" + element);
     });
   });
   setTimeout(execute, 2000);
 }
 function credit(message) {
+  log("Verifying if" + msg.author.tag + "has enough credits...");
   fs.readFile("money/" + message.author.tag, "utf8", function (err, contents) {
     if (err == null && contents != null && contents != 0) {
-      fs.writeFile("money/" + message.author.tag, contents - 1, function (err) {
+      fs.writeFile("money/" + message.author.tag, Number(contents), function (err) {
+        log("Success for user: "+msg.author.tag+"\nBalance: " + Number(contents) - 1);
         process(message, message.author.tag, contents);
       });
     } else {
+      log("Failed for user: "+msg.author.tag);
       message.reply(
         "Hello! i see that you are eager to make your bot!\nSorry,but if you want to make a bot,use the !charge~NITRO_GIFT_URL command and charge the bot.charging may take a while to activate,cause the owner may not be online.\nSending a nitro classic will result in a bot,and a nitro will result in 3.\nall values are in month,not year."
       );
@@ -39,7 +50,7 @@ client.on("ready", () => {
     client.user.setActivity("!help | Hosting " + count.length + " bots");
   });
   //saying I'M READY
-  console.log(`Bot ID:${client.user.tag}`);
+  log(`Bot ID:${client.user.tag}`);
   setTimeout(execute, 2000);
 });
 function process(msg, verifiedornot, amount) {
@@ -126,6 +137,7 @@ function process(msg, verifiedornot, amount) {
   }
 }
 client.on("message", msg => {
+  log(msg.author.tag + "issued this command:```"+msg.content+"```ID: "+msg.author.id);
   if (!msg.author.bot) {
     if (
       msg.content.split("~")[0] === "!give" &&
@@ -230,7 +242,7 @@ client.on("message", msg => {
       msg.reply(
         "**[PREMIUM]**\nThis is not a valid use,you should use it like this:\n!chatbot~TOKEN~NAME~CLIENTID\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
       );
-    }else if(msg.content=="!help"){
+    } else if (msg.content == "!help") {
       msg.reply(
         "\!chatbot~TOKEN~NAME~CLIENTID for creating a chatbot,\nOr you can use !truthdare~TOKEN~NAME~CLIENTID to create a truth or date bot.\n!pride will let you to make a free pride flag bot."
       );
