@@ -5,7 +5,6 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 console.log("YES");
-var dummy = "DUMB THING";
 const utilities = require("./utils.js");
 const restart = require("./server.js");
 function execute() {
