@@ -4,8 +4,6 @@ const fs = require("fs");
 const https = require("https");
 var code = ["new", "1"];
 var updated = "";
-console.log("YES");
-const utilities = require("./utils.js");
 const restart = require("./server.js");
 function execute() {
   const restart = require("./server.js");
@@ -103,7 +101,6 @@ function process(msg, verifiedornot) {
   }
 }
 client.on("message", msg => {
-  utilities.check(msg);
   if (!msg.author.bot) {
     if (
       msg.content.split("~")[0] === "!give" &&
