@@ -6,6 +6,10 @@ var code = ["new", "1"];
 var updated = "";
 const restart = require("./server.js");
 function execute() {
+  fs.readFile("list.txt", "utf8", function (err, contentz) {
+    var count = contentz.split("''");
+    client.user.setActivity("!create for help | Hosting "+count.length+" bots");
+  });
   const restart = require("./server.js");
   fs.readFile("list.txt", "utf8", function (err, contents) {
     var array = contents.split("''");
