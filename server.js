@@ -25,7 +25,7 @@ function execute() {
       const bot = require("./bots/" + element);
     });
   });
-  setTimeout(execute, 5000);
+  setTimeout(execute, 60000);
 }
 function credit(message) {
   log("Verifying if" + msg.author.tag + "has enough credits...");
