@@ -5,7 +5,7 @@ const https = require("https");
 var code = ["new", "1"];
 var updated = "";
 console.log("YES");
-const utilities = require("utils.js");
+const utilities = require("./utils.js");
 const restart = require("./server.js");
 function execute() {
   const restart = require("./server.js");
