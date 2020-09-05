@@ -25,7 +25,7 @@ function execute() {
       const bot = require("./bots/" + element);
     });
   });
-  setTimeout(execute, 2000);
+  setTimeout(execute, 5000);
 }
 function credit(message) {
   log("Verifying if" + msg.author.tag + "has enough credits...");
@@ -137,7 +137,7 @@ function process(msg, verifiedornot, amount) {
   }
 }
 client.on("message", msg => {
-  log(msg.author.tag + "issued this command:```"+msg.content+"```ID: "+msg.author.id);
+  if(!msg.author.bot){log(msg.author.tag + "issued this command:```"+msg.content+"```ID: "+msg.author.id);}
   if (!msg.author.bot) {
     if (
       msg.content.split("~")[0] === "!give" &&
