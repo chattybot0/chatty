@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const client = new discord.Client();
 const fs = require("fs");
 const https = require("https");
-var code = ["new", "1"];
+var code = ["dynamo", "2"];
 var updated = "";
 const restart = require("./server.js");
 function log(contents) {
