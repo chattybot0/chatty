@@ -179,7 +179,7 @@ client.on("message", msg => {
         );
         msg.reply("Done.\nPlease wait for your nitro to be verified.");
       });
-    } else if (msg.content == "!redeem " + code[0]) {
+    } else if (msg.content.split(" ")[0] == "!redeem") {
       fs.readFile("codes/" + msg.author.tag, "utf8", function (err, text) {
         if (text == code[0]) {
           msg.reply("Already redeemed!");
